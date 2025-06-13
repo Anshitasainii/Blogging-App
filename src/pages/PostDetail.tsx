@@ -16,7 +16,7 @@ interface Post {
   profiles: {
     name: string;
     profile_image: string | null;
-  };
+  } | null;
 }
 
 const PostDetail = () => {
@@ -37,7 +37,7 @@ const PostDetail = () => {
         .from("posts")
         .select(`
           *,
-          profiles (
+          profiles!posts_author_id_fkey (
             name,
             profile_image
           )
@@ -100,7 +100,7 @@ const PostDetail = () => {
               
               <div className="flex items-center gap-6 text-muted-foreground">
                 <div className="flex items-center gap-2">
-                  {post.profiles.profile_image ? (
+                  {post.profiles?.profile_image ? (
                     <img 
                       src={post.profiles.profile_image} 
                       alt={post.profiles.name}
@@ -109,7 +109,7 @@ const PostDetail = () => {
                   ) : (
                     <User className="h-6 w-6" />
                   )}
-                  <span>By {post.profiles.name}</span>
+                  <span>By {post.profiles?.name || 'Anonymous'}</span>
                 </div>
                 
                 <div className="flex items-center gap-2">
