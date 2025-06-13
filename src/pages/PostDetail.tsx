@@ -38,7 +38,7 @@ const PostDetail = () => {
         .from("posts")
         .select(`
           *,
-          profiles (
+          profiles!posts_author_id_fkey (
             name,
             profile_image
           )
