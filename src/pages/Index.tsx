@@ -13,6 +13,7 @@ interface Post {
   excerpt: string | null;
   image: string | null;
   created_at: string;
+  author_id: string;
   profiles: {
     name: string;
     profile_image: string | null;
@@ -33,7 +34,7 @@ const Index = () => {
         .from("posts")
         .select(`
           *,
-          profiles!posts_author_id_fkey (
+          profiles (
             name,
             profile_image
           )
