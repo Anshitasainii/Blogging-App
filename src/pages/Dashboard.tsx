@@ -26,6 +26,7 @@ interface Post {
   image: string | null;
   created_at: string;
   updated_at: string;
+  likes:number;
 }
 
 const Dashboard = () => {

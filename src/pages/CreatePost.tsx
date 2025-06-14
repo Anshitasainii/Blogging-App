@@ -169,10 +169,7 @@ const CreatePost = () => {
                       onChange={handleImageChange}
                       className="flex-1"
                     />
-                    <Button type="button" variant="outline" size="sm">
-                      <Upload className="h-4 w-4 mr-2" />
-                      Choose File
-                    </Button>
+                   
                   </div>
                   {imagePreview && (
                     <div className="relative inline-block">

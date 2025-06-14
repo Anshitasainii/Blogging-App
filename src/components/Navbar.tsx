@@ -43,15 +43,16 @@ export const Navbar = () => {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center space-x-4">
             <Link to="/" className="text-xl font-bold text-primary">
-              BlogApp
+              Blogging-App
             </Link>
             <div className="hidden md:flex items-center space-x-4">
-              <Link to="/" className="flex items-center space-x-1 text-sm font-medium hover:text-primary">
+              
+              {user && (
+                <>
+                <Link to="/home" className="flex items-center space-x-1 text-sm font-medium hover:text-primary">
                 <Home className="h-4 w-4" />
                 <span>Home</span>
               </Link>
-              {user && (
-                <>
                   <Link to="/dashboard" className="flex items-center space-x-1 text-sm font-medium hover:text-primary">
                     <LayoutDashboard className="h-4 w-4" />
                     <span>Dashboard</span>

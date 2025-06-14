@@ -23,10 +23,20 @@ interface Post {
 const Index = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<any>(null); // user state
 
   useEffect(() => {
+    getUser();
     fetchPosts();
   }, []);
+
+  const getUser = async () => {
+    const { data, error } = await supabase.auth.getUser();
+    if (data?.user) {
+      setUser(data.user);
+    }
+  };
+
 
   const fetchPosts = async () => {
     try {
@@ -38,8 +48,7 @@ const Index = () => {
             name,
             profile_image
           )
-        `)
-        .order("created_at", { ascending: false });
+        `) as unknown as { data : Post[]; error: any};
 
       if (error) throw error;
       setPosts(data || []);
@@ -68,20 +77,28 @@ const Index = () => {
           </p>
         </div>
 
-        {posts.length === 0 ? (
-          <div className="text-center py-16">
-            <h2 className="text-2xl font-semibold mb-4">No posts yet</h2>
-            <p className="text-muted-foreground mb-8">
-              Be the first to share your story with the community!
-            </p>
-            <Link 
-              to="/auth"
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-            >
-              Get Started
-            </Link>
-          </div>
-        ) : (
+       {posts.length === 0 ? (
+  !user ? (
+    <div className="text-center py-16">
+      <h2 className="text-2xl font-semibold mb-4">No posts yet</h2>
+      <p className="text-muted-foreground mb-8">
+        Be the first to share your story with the community!
+      </p>
+      <Link 
+        to="/auth"
+        className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+      >
+        Get Started
+      </Link>
+    </div>
+  ) : (
+    <div className="text-center py-16">
+      <h2 className="text-2xl font-semibold mb-4">No posts yet</h2>
+      <p className="text-muted-foreground mb-8">No content available right now.</p>
+    </div>
+  )
+) : (
+
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
               <Card key={post.id} className="overflow-hidden hover:shadow-lg transition-shadow">

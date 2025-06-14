@@ -23,7 +23,7 @@ const Auth = () => {
     // Check if user is already logged in
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
-        navigate("/");
+        navigate("/home");
       }
     });
   }, [navigate]);
@@ -44,7 +44,7 @@ const Auth = () => {
         title: "Success",
         description: "You have been signed in successfully!",
       });
-      navigate("/");
+      navigate("/home");
     } catch (error: any) {
       toast({
         title: "Error",
@@ -65,7 +65,7 @@ const Auth = () => {
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/`,
+          emailRedirectTo:" http://localhost:8080/auth/callback",
           data: {
             name: name,
           },
