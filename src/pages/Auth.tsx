@@ -142,6 +142,10 @@ const Auth = () => {
           <TabsContent value="signup">
             <Card>
               <CardHeader className="space-y-1">
+                {/* ✅ Light Note */}
+      <p className="text-sm text-muted-foreground text-center">
+        Note: Please check your email and click on given link.Then come here again and SignIn  with same email and password.
+      </p>
                 <CardTitle className="text-2xl text-center">Sign Up</CardTitle>
                 <CardDescription className="text-center">
                   Create an account to start blogging
