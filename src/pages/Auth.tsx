@@ -76,7 +76,7 @@ const Auth = () => {
 
       toast({
         title: "Success",
-        description: "Please check your email to confirm your account!",
+        description: "Please check your email and click on given link.Then come here again and Signin  with same email and password!",
       });
     } catch (error: any) {
       toast({
